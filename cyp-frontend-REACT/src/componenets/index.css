@@ -1,0 +1,25 @@
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.modal-contents {
+    transform: translateY(-80px);
+    height: 150px;
+    width: 100%;
+    max-width: 300px;
+    /* background-color: #05f9ed; */
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+.hidden {
+    display: none !important;
+}
