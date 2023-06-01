@@ -35,7 +35,7 @@ X_train=['N', 'P', 'K', 'pH', 'rainfall', 'temperature', 'Area_in_hectares',
         'Crop_turmeric', 'Crop_watermelon', 'Crop_wheat', 'Crop_Type_kharif',
         'Crop_Type_rabi', 'Crop_Type_summer', 'Crop_Type_whole year']
 
-rf_cv=pickle.load(open("cyp-backend-FLASK/RandomForest_CV_model.pkl",'rb'))
+rf_cv=pickle.load(open("RandomForest_CV_model.pkl",'rb'))
 
 def initialize(state,crop,season,area,n,p,k,ph,rain,temp):
     input_data={
