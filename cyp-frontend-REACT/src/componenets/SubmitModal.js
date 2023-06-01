@@ -41,7 +41,7 @@ export default function SubmitModal({values}) {
         if(data!==undefined)return;
         setTimeout(async()=>{
             try {
-                const response= await axios.post('http://127.0.0.1:5000/', values, {
+                const response= await axios.post('https://cyp-flask-server.onrender.com', values, {
                     headers: {
                     'Content-Type': 'application/json'
                     }
