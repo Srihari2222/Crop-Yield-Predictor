@@ -41,7 +41,7 @@ export default function SubmitModal({values}) {
         if(data!==undefined)return;
         setTimeout(async()=>{
             try {
-                const response= await axios.post('http://ec2-13-127-221-116.ap-south-1.compute.amazonaws.com:8080/', values, {
+                const response= await axios.post('http://127.0.0.1:5000/', values, {
                     headers: {
                     'Content-Type': 'application/json'
                     }
