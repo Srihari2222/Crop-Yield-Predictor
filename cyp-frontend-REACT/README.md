@@ -23,6 +23,9 @@ You can arrange your components in a seperate components folder. Also I arranged
 #
 ### Final lines
 Now after creating all the components, you can connect the react frontend to your flask backend. In SubmitModal.js file I used axious to send a post request to the backend server where I passed all the values and mentioned the content-type. Then after getting a response from the server I displayed the respective predicted yield.
+#
+### Ready for production build.
+After creating the frontend, we need to deploy it on a hosting platform. I used netlify to host this without any cost. First you need to run `npm run build` to get a build folder which is then uploaded on the netlify.
 # 
 ### Conclusion
 I created this frontend which is user-friendly and intuitive. The main feature is that I auto-save the changes made by the user save them in the localStorage in the browser.
