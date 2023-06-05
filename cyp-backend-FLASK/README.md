@@ -35,3 +35,22 @@ To obtain this you should already ready with a proper installation of python on 
  - Flask-CORS: An extension for Flask that simplifies Cross-Origin Resource Sharing (CORS) handling.
  - scikit-learn: A machine learning library in Python for various tasks.
  - Gunicorn: Gunicorn (Green Unicorn) is a WSGI HTTP server for Python web applications. It serves as a production-ready server that can handle multiple concurrent requests efficiently. Gunicorn is often used to deploy Flask applications to production environments.
+#
+### Handling ML model
+First, you need to upload the model.pkl file on your github. As the file may exceed the limit, you need to push it using github large file system(lfs). Then using pickle you can load the saved model in the app.py file. Now you can use this model to predict the crop yield based on the values obtained from the frontend to the backend server.
+Then on the post request sent by frontend, you can utilize the data and send a response which contains the predicted value. But in the server  you dont need to write the frontend url as you are just responding to a request.
+###### Note:
+While running server locally, you can use debug=True, but when deploying you need to erase that line and define a port number.
+#
+### Deploying the Server on render.com
+Once you pushed your folder onto github, you can easily host your flask server on render.com. But while creating server on render, you need to put all the values as shown below:
+1. You need to link your repository.
+2. Then you need to type the folder name where the backend server lies.
+3. put the build command as : `pip install -r requirements.txt`
+4. put start command as : `gunicorn app:app` , in which 'app:' is the name of your .py file and ':app' is the name of your FLASK(__name__) instance name.
+5. keep remaining settings as it is.
+6. Run the latest commit and then the server successfully starts running.
+7. Copy the server url : (`https://{your server name}.onrender.com`) and use it in the frontend where the post request is used.
+#
+### Conclusion
+I conclude that the free server can't handle more traffic. you can still deploy on aws but on a charge basis. You should follow proper steps to connect the react and flask.
