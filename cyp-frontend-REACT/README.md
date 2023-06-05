@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+# Building Frontend for the project.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Creating REACT App.
+To crate a react app you need to run a command in your folder : npx create-react-app my-app.
+Instead of 'my-app' you can use '.' if you are already in your frontend directory else you can can write your directory name. In my case I used 'cyp-frontend-REACT'.
+After creating aan environment you can start building the frontend. The public folder contains a index.html where you can change the favicon and browser related editing like authors, etc.
+Then you can build the related components to your site. 
+But before this you need to downlaod the required dependencies for this frontend.
+##### Dependencies:
+1. Axios - a popular library for making HTTP requests: `npm install axios`
+2. Chakra UI - a set of accessible and customizable UI components for React:  `npm install @chakra-ui/react`
+3. Emotion - a library for writing CSS styles in JavaScript:  `npm install @emotion/react @emotion/styled`
+4. Font Awesome - a library for adding scalable vector icons to your project:  `npm install font-awesome`
+5. Framer Motion - a library for creating animations in React: `npm install framer-motion`
+6. React Draggable - a library for adding draggable elements to your React app: `npm install react-draggable`
+7. React Router DOM - a library for handling routing in React apps: `npm install react-router-dom`
+#  
+### Discussion on CHAKRA-UI
+Chakra UI is a versatile and accessible component library for React applications. With Chakra UI, you can quickly build beautiful and responsive user interfaces while following best practices and maintaining accessibility standards. It provides a wide range of customizable and pre-built components, such as buttons, forms, modals, and more, which can be easily integrated into your project. Chakra UI also offers built-in theming and styling capabilities using Emotion, allowing you to effortlessly customize the look and feel of your application. Whether you're a beginner or an experienced developer, Chakra UI simplifies the process of building elegant and functional user interfaces, saving you time and effort in your React projects. The required styles for a component are given inline only. You can check the site (https://chakra-ui.com/) to get a basic understanding of including the ui in your project.
+#
+### Best way to keep your files.
+You can arrange your components in a seperate components folder. Also I arranged all my crops images in a seperate folders so that it is easy to import them in a minimal lines of code. I created a index.js in the crop_folder in the assets folder where I kept my all downloaded images. I imported the images and exported their names. Then I created a constants folder where I imported those crop names from crop_folder. Then I exported the list of objects from index.js in constants folder. This made a clear code in the cropModal component.
+#
+### Final lines
+Now after creating all the components, you can connect the react frontend to your flask backend. In SubmitModal.js file I used axious to send a post request to the backend server where I passed all the values and mentioned the content-type. Then after getting a response from the server I displayed the respective predicted yield.
+# 
+### Conclusion
+I created this frontend which is user-friendly and intuitive. The main feature is that I auto-save the changes made by the user save them in the localStorage in the browser.
