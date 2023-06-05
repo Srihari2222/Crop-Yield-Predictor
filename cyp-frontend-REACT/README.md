@@ -1,4 +1,4 @@
-# Building Frontend for the project.
+# Frontend of the project-REACT.
 
 ### Creating REACT App.
 To crate a react app you need to run a command in your folder : npx create-react-app my-app.
