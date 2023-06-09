@@ -1,9 +1,9 @@
 import React from 'react'
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useRef,} from 'react';
 import CropModal from './CropModal';
 import SeasonPopover from './SeasonPopover';
 import SubmitModal from './SubmitModal';
-import {Box,extendTheme,Container,Heading,Divider,FormControl,FormLabel,Menu,MenuButton, MenuList, MenuItem,NumberInput,NumberInputField,Image,Text,Stack,useToast,Button,Tooltip} from '@chakra-ui/react';
+import {Box,extendTheme,Container,Heading,Divider,FormControl,FormLabel,Menu,MenuButton, MenuList, MenuItem,NumberInput,NumberInputField,Image,Text,Stack,useToast,Button,Tooltip,AlertDialog,AlertDialogBody,AlertDialogFooter,AlertDialogHeader,AlertDialogContent,AlertDialogOverlay,AlertDialogCloseButton,useDisclosure} from '@chakra-ui/react';
 import Kharif from '../assets/rainy.png'
 import Rabi from '../assets/winter.png'
 import Summer from '../assets/summer.png'
@@ -94,6 +94,8 @@ components: {
 });
 export default function Main() {
     const toast=useToast();
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const cancelRef = useRef()
     useEffect(()=>{
         toast({
             title: "Do not worry",
@@ -104,9 +106,8 @@ export default function Main() {
             isClosable: true,
         });
         const resetOccurred = localStorage.getItem("resetOccurred");
-        if (resetOccurred === "true") {
+        if(resetOccurred === "true") {
             localStorage.removeItem("resetOccurred");
-        
             setTimeout(() => {
                 toast({
                 title: "Reset Success",
@@ -117,7 +118,7 @@ export default function Main() {
                 isClosable: true,
                 });
             },1000);
-            }
+        }
     },[])
     const [State,setState]=useState(localStorage.getItem("statestore") ||"Select State");
     const [Crop,setCrop]=useState(localStorage.getItem("cropstore") ||"Select Crop");
@@ -129,6 +130,7 @@ export default function Main() {
     const [k,setk]=useState(localStorage.getItem("kstore")|| undefined);
     const [ph,setph]=useState(localStorage.getItem("phstore")|| undefined);
     const [area,setArea]=useState(localStorage.getItem("areastore")|| undefined);
+    
 
 
     useEffect(()=>{
@@ -145,7 +147,10 @@ export default function Main() {
 
     });
     const handleReset=()=>{
-        if(State==="Select State" && Crop==="Select Crop" && Season==="Select Season" && temp===undefined && rain===undefined && n===undefined && n===undefined && p===undefined && k===undefined && ph===undefined && area===undefined)return;
+        if(State==="Select State" && Crop==="Select Crop" && Season==="Select Season" && temp===undefined && rain===undefined && n===undefined && n===undefined && p===undefined && k===undefined && ph===undefined && area===undefined){
+            onClose()
+            return
+        }
         else{
             localStorage.removeItem("statestore");
             localStorage.removeItem("cropstore");
@@ -172,8 +177,32 @@ export default function Main() {
             <Box display={"flex"} width={"100%"}>
                 <Heading ml={`${window.innerWidth>1000?5:3}`} whiteSpace={"nowrap"} as="h1" fontWeight={"bolder"} size="lg" mb={0} textColor="darkcyan">Want to Predict Yield ?</Heading>
                 <Tooltip label="Reset Form" bg={"black"} borderWidth={0.01}  hasArrow >
-                    <Image marginLeft={`${window.innerWidth<1000?5:"100px"}`} boxShadow={"dark-lg"} alt="reset" src={reset} boxSize={10} onClick={handleReset} _hover={{transform: 'scale(1.25)',transition: 'transform 0.05s ease-in-out',cursor:"pointer"}} />
+                    <Image marginLeft={`${window.innerWidth<1000?5:"100px"}`} boxShadow={"dark-lg"} alt="reset" src={reset} boxSize={10} onClick={onOpen} _hover={{transform: 'scale(1.25)',transition: 'transform 0.05s ease-in-out',cursor:"pointer"}} />
                 </Tooltip>
+                <AlertDialog
+                    motionPreset='slideInBottom'
+                    leastDestructiveRef={cancelRef}
+                    onClose={onClose}
+                    isOpen={isOpen}
+                    isCentered
+                >
+                    <AlertDialogOverlay />
+                    <AlertDialogContent>
+                    <AlertDialogHeader>Reset Form?</AlertDialogHeader>
+                    <AlertDialogCloseButton />
+                    <AlertDialogBody>
+                        Are you sure you want to reset the form?
+                    </AlertDialogBody>
+                    <AlertDialogFooter>
+                        <Button ref={cancelRef} onClick={onClose}>
+                        No
+                        </Button>
+                        <Button onClick={handleReset} colorScheme='red' ml={3}>
+                        Yes
+                        </Button>
+                    </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </Box>
             <Divider orientation='horizontal' width={"100%"} borderWidth={1.5} borderColor="#151530" m={0} mt={2}/>
             <Container ml={0} width="100%" mt={30}>
