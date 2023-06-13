@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState} from 'react';
-import { useDisclosure,Modal,Button,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton,ModalBody,ModalFooter,Grid,Flex,Input,Text,Center,Image,Card,CardBody,Divider,Container} from '@chakra-ui/react';
+import { useDisclosure,Modal,Button,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton,ModalBody,ModalFooter,Grid,Flex,Input,Text,Center,Image,Card,CardBody,Divider,Container,Tooltip} from '@chakra-ui/react';
 import { crops } from './constants';
 import resize from '../assets/resize.png';
 const scrollbarStyles={
@@ -25,7 +25,7 @@ export default function CropModal({updateCrop}) {
     const { isOpen: isOpenModal2, onOpen: onOpenModal2, onClose: onCloseModal2 } = useDisclosure();
     const [selectedImage, setSelectedImage] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-
+    const [doubletap,setdoubletap]=useState(1);
     const filteredCrops = crops.filter((crop) =>
         crop.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -34,8 +34,17 @@ export default function CropModal({updateCrop}) {
         onCloseModal1();
     }
     const enlargeImage = (e) => {
-        setSelectedImage(e.target.alt);
-        onOpenModal2()
+        setdoubletap(doubletap+1);
+        if(doubletap===1){
+            setTimeout(()=>{
+                setdoubletap(1);
+            },300)
+        }
+        else if(doubletap===2){
+            setSelectedImage(e.target.alt);
+            onOpenModal2()
+            setdoubletap(1);
+        }
     };
     return (
         <>
@@ -80,8 +89,10 @@ export default function CropModal({updateCrop}) {
                 <Grid templateColumns="repeat(3, 1fr)" gap={4} mt={4}>
                     {filteredCrops.map((crop) => (
                     <Card boxShadow={"dark-lg"} p={1.5} key={crop.name} textAlign="center" cursor="pointer" _hover={{transform: 'scale(1.05)',transition: 'transform 0.05s ease-in-out',backgroundColor:"green.200"}}  borderWidth={1} bgColor={'#C6F6D5'} >
-                        <Image src={crop.icon} height={'50%'} alt={crop.name} borderRadius={'6px'} onClick={handleCrop} />
-                        <Image  title='full view' alt={crop.name} src={resize} boxSize={5} position={'absolute'} transform="translate(50%, -50%)" top={5} right={5} onClick={enlargeImage} />
+                        <Tooltip label="Double tap" bg={"black"} borderWidth={0.01}  hasArrow >
+                        <Image src={crop.icon} height={'50%'} alt={crop.name} borderRadius={'6px'} onClick={enlargeImage} />
+                        </Tooltip>
+                        {/* <Image  title='full view' alt={crop.name} src={resize} boxSize={5} position={'absolute'} transform="translate(50%, -50%)" top={5} right={5} onClick={enlargeImage} /> */}
                         <CardBody data-crop={crop.name} onClick={handleCrop}>
                             <Center>
                                 <Text display={'flex'} fontSize={'auto'} fontWeight="bold" mt={2}>{crop.name}</Text>
